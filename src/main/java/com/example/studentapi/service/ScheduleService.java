@@ -14,10 +14,6 @@ public class ScheduleService {
     @Autowired
     private CacheService cacheService;
 
-<<<<<<< HEAD
-    @SuppressWarnings("unchecked")
-=======
->>>>>>> 64c8f1d2aef65111ffb31a3632885449c800f0c5
     public List<Course> getStudentCourses() {
         String cacheKey = "student_courses";
         if (cacheService.containsKey(cacheKey)) {
@@ -28,10 +24,6 @@ public class ScheduleService {
         return courses;
     }
 
-<<<<<<< HEAD
-    @SuppressWarnings("unchecked")
-=======
->>>>>>> 64c8f1d2aef65111ffb31a3632885449c800f0c5
     public List<BsuirGroupDto> getBsuirGroups() {
         String cacheKey = "bsuir_groups";
         if (cacheService.containsKey(cacheKey)) {

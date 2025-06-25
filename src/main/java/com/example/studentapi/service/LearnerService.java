@@ -12,10 +12,8 @@ import java.util.Optional;
 public class LearnerService {
     @Autowired
     private LearnerRepository learnerRepository;
-    
     @Autowired
     private CacheService cacheService;
-
     public List<Learner> getAllLearners() {
         String cacheKey = "all_learners";
         if (cacheService.containsKey(cacheKey)) {
@@ -25,7 +23,6 @@ public class LearnerService {
         cacheService.put(cacheKey, learners);
         return learners;
     }
-
     public Optional<Learner> getLearnerById(Long id) {
         String cacheKey = "learner_" + id;
         if (cacheService.containsKey(cacheKey)) {
@@ -35,20 +32,17 @@ public class LearnerService {
         learner.ifPresent(l -> cacheService.put(cacheKey, l));
         return learner;
     }
-
     public Learner saveLearner(Learner learner) {
         Learner saved = learnerRepository.save(learner);
         cacheService.put("learner_" + saved.getId(), saved);
         cacheService.remove("all_learners");
         return saved;
     }
-
     public void deleteLearner(Long id) {
         learnerRepository.deleteById(id);
         cacheService.remove("learner_" + id);
         cacheService.remove("all_learners");
     }
-
     public List<Learner> getLearnersByCourseDepartment(String department) {
         String cacheKey = "learners_by_department_" + department;
         if (cacheService.containsKey(cacheKey)) {

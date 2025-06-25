@@ -11,10 +11,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/cache")
 public class CacheController {
-    
     @Autowired
     private CacheService cacheService;
-    
     @GetMapping("/info")
     public ResponseEntity<Map<String, Object>> getCacheInfo() {
         Map<String, Object> info = new HashMap<>();
@@ -25,14 +23,12 @@ public class CacheController {
         System.out.println("Returning: " + info);
         return ResponseEntity.ok(info);
     }
-    
     @DeleteMapping("/clear")
     public ResponseEntity<String> clearCache() {
         cacheService.clear();
         System.out.println("Cache cleared successfully");
         return ResponseEntity.ok("Cache cleared successfully");
     }
-    
     @DeleteMapping("/{key}")
     public ResponseEntity<String> removeFromCache(@PathVariable String key) {
         cacheService.remove(key);

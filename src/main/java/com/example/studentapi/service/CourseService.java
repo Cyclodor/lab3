@@ -12,10 +12,8 @@ import java.util.Optional;
 public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
-    
     @Autowired
     private CacheService cacheService;
-
     public List<Course> getAllCourses() {
         String cacheKey = "all_courses";
         if (cacheService.containsKey(cacheKey)) {
@@ -25,7 +23,6 @@ public class CourseService {
         cacheService.put(cacheKey, courses);
         return courses;
     }
-
     public Optional<Course> getCourseById(Long id) {
         String cacheKey = "course_" + id;
         if (cacheService.containsKey(cacheKey)) {
@@ -35,20 +32,17 @@ public class CourseService {
         course.ifPresent(c -> cacheService.put(cacheKey, c));
         return course;
     }
-
     public Course saveCourse(Course course) {
         Course saved = courseRepository.save(course);
         cacheService.put("course_" + saved.getId(), saved);
         cacheService.remove("all_courses");
         return saved;
     }
-
     public void deleteCourse(Long id) {
         courseRepository.deleteById(id);
         cacheService.remove("course_" + id);
         cacheService.remove("all_courses");
     }
-
     public List<Course> getCoursesByNameContaining(String courseName) {
         String cacheKey = "courses_by_name_" + courseName;
         if (cacheService.containsKey(cacheKey)) {
