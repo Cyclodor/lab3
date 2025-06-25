@@ -13,7 +13,6 @@ public class ScheduleService {
     private ScheduleDAO scheduleDAO;
     @Autowired
     private CacheService cacheService;
-
     public List<Course> getStudentCourses() {
         String cacheKey = "student_courses";
         if (cacheService.containsKey(cacheKey)) {
@@ -23,7 +22,6 @@ public class ScheduleService {
         cacheService.put(cacheKey, courses);
         return courses;
     }
-
     public List<BsuirGroupDto> getBsuirGroups() {
         String cacheKey = "bsuir_groups";
         if (cacheService.containsKey(cacheKey)) {

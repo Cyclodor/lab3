@@ -22,8 +22,4 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Learner> learners;
-
-    @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
 } 
